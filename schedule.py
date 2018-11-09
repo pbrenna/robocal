@@ -1,6 +1,8 @@
 from multiprocessing import Process
 from event_exec import evexec, evexec_stop
 import time
+from datetime import datetime
+import pytz
 
 def event_process(ev, conf):
     print("Started process for "+ev.summary)
@@ -16,8 +18,10 @@ def event_lifecycle(ev, conf):
     p.start()
 
 def populate_scheduler(scheduler, events, conf):
+    now = datetime.now(pytz.utc)
     for ev in events:
-        scheduler.enterabs(ev.start, 1, event_lifecycle, argument=(ev, conf))
+        if ev.start > now:
+            scheduler.enterabs(ev.start, 1, event_lifecycle, argument=(ev, conf))
 
 def schedule_proc(scheduler):
     print("Starting schedule process")
