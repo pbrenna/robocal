@@ -1,6 +1,5 @@
 import configparser
 import sys
-import requests
 import time
 from multiprocessing import Process
 import icalendar
