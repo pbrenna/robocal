@@ -10,22 +10,6 @@ from icalevents.icalparser import parse_events
 import sched
 import schedule
 
-conf = configparser.ConfigParser()
-try:
-    conf.read(sys.argv[1])
-except:
-    print("Usage: main.py config.ini", file=sys.stderr)
-    sys.exit(1)
-try:
-    cal = conf['calendar']
-    url = cal['url']
-    user = cal['user']
-    password = cal['password']
-except KeyError:
-    print("The configuration file must contain at least a calendar key", file=sys.stderr)
-    sys.exit(1)
-update_freq = int(cal.get("update_frequency", 15))
-sleep_seconds = update_freq * 60
 
 
 def sleep_fun(tdelta):
@@ -38,6 +22,23 @@ def sleep_fun(tdelta):
 sch_proc = None
 
 while True:
+
+    conf = configparser.ConfigParser()
+    try:
+        conf.read(sys.argv[1])
+    except:
+        print("Usage: main.py config.ini", file=sys.stderr)
+        sys.exit(1)
+    try:
+        cal = conf['calendar']
+        url = cal['url']
+        user = cal['user']
+        password = cal['password']
+    except KeyError:
+        print("The configuration file must contain at least a calendar key", file=sys.stderr)
+        sys.exit(1)
+    update_freq = int(cal.get("update_frequency", 15))
+    sleep_seconds = update_freq * 60
     sch = None
     if sch_proc is not None:
         print("Kill process")
