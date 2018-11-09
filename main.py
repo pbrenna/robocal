@@ -12,15 +12,18 @@ import sched
 import schedule
 
 conf = configparser.ConfigParser()
-conf.read('robocal.ini')
-
+try:
+    conf.read(sys.argv[1])
+except:
+    print("Usage: main.py config.ini", file=sys.stderr)
+    sys.exit(1)
 try:
     cal = conf['calendar']
     url = cal['url']
     user = cal['user']
     password = cal['password']
 except KeyError:
-    print("The configuration file must contain ", file=sys.stderr)
+    print("The configuration file must contain at least a calendar key", file=sys.stderr)
     sys.exit(1)
 update_freq = int(cal.get("update_frequency", 15))
 sleep_seconds = update_freq * 60
