@@ -1,0 +1,10 @@
+[Unit]
+Description=Robocal scheduler
+
+[Service]
+WorkingDirectory=/home/.....
+ExecStart=/usr/local/bin/pipenv run python main.py "../robocal.ini"
+
+[Install]
+WantedBy=default.target
+
