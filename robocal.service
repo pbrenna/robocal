@@ -2,8 +2,8 @@
 Description=Robocal scheduler
 
 [Service]
-WorkingDirectory=/home/.....
-ExecStart=/usr/local/bin/pipenv run python main.py "../robocal.ini"
+WorkingDirectory=/home/pietro/Schifezze/robocal/wd/
+ExecStart=poetry run python ../main.py "../robocal.ini"
 
 [Install]
 WantedBy=default.target

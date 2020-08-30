@@ -1,0 +1,10 @@
+[calendar]
+url = https://your-server/your-calendar
+user = username
+password = your-password
+update_frequency = 15 #minutes
+
+[action.radio3]
+start_exec = ./radio3.sh
+auto_kill = True
+end_exec=echo 'è finita'
